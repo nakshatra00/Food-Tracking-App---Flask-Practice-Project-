@@ -16,7 +16,7 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-top">
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Food Tracker</a>
@@ -36,15 +36,17 @@
         <div>
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <h3 class="panel-title">January 28, 2017</h3>
+              <h3 class="panel-title">{{ date }}</h3>
             </div>
 
             <div class="panel-body">
 
-              <form method="POST" action="/">
+              <form method="POST" action="{{ url_for('view', date='20230316') }}">
                 <div class="form-group">
-                  <select class="form-control">
-                    <option>1</option>
+                  <select class="form-control" name="food-select">
+                    {% for food in food_results %}
+                    <option value={{ food.id }}>{{ food.name }}</option>
+                    {% endfor %}
                   </select>
                 </div>
 
@@ -53,17 +55,17 @@
               </form>
 
               <div class="page-header"></div>
-
+                {% for food in log_results %}
               <ul class="nav nav-pills" role="tablist">
-                <li class="active"><a>Total</a></li>
-                <li><a>Protein: <span class="badge">100</span></a></li>
-                <li><a>Carbohydates: <span class="badge">200</span></a></li>
-                <li><a>Fat: <span class="badge">50</span></a></li>
-                <li><a>Calories: <span class="badge">1650</span></a></li>
+                <li class="active"><a>{{ food.name }}</a></li>
+                <li><a>Protein: <span class="badge">{{ food.protein }}</span></a></li>
+                <li><a>Carbohydates: <span class="badge">{{ food.carbohydrate }}</span></a></li>
+                <li><a>Fat: <span class="badge">{{ food.fat }}</span></a></li>
+                <li><a>Calories: <span class="badge">{{ food.calories }}</span></a></li>
               </ul>
 
             </div>
-
+            {% endfor %}
             <div class="page-header"></div>
 
             <div class="panel-body">
